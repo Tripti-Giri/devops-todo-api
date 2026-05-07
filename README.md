@@ -33,4 +33,4 @@ Every push to main branch automatically:
 1. Runs all pytest tests
 2. Builds Docker image
 3. Pushes to DockerHub
-4. Deploys to AWS EC2
+4. Deploys to AWS EC2 (rememeber to update your ec2 ip before triggering pipelinf)
