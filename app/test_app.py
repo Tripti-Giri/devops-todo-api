@@ -80,7 +80,7 @@ def test_delete_todo(client):
     assert len(get_response.get_json()) == 0
 
 
-# ── Test 7: Delete non-existent todo ─────────────────
+# ── Test 7: Delete non-existent todo 0─────────────────
 def test_delete_nonexistent_todo(client):
     response = client.delete('/todos/999')
     assert response.status_code == 404
