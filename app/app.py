@@ -1,30 +1,23 @@
 from flask import Flask, jsonify, request
 
-# Flask app instance
+
 app = Flask(__name__)
 
-# In-memory storage (like a temporary database)
-# Just a Python list — resets when container restarts
 todos = []
-next_id = 1  # auto-increment ID counter
+next_id = 1 
 
 
-# ── Route 1: GET /todos ──────────────────────────────
-# Returns all todos as JSON
-# Like asking "show me my full todo list"
+# ── Route 1: GET /todos 
 @app.route('/todos', methods=['GET'])
 def get_todos():
     return jsonify(todos), 200
 
 
-# ── Route 2: POST /todos ─────────────────────────────
-# Creates a new todo
-# You send: {"task": "Learn Docker"}
-# It saves it with an ID and returns it back
+# ── Route 2: POST /todos 
 @app.route('/todos', methods=['POST'])
 def add_todo():
     global next_id
-    data = request.get_json()  # reads the JSON body you send
+    data = request.get_json() 
 
     # Basic validation — task field must exist
     if not data or 'task' not in data:
@@ -37,23 +30,20 @@ def add_todo():
     }
     todos.append(todo)
     next_id += 1
-    return jsonify(todo), 201  # 201 = Created
+    return jsonify(todo), 201 
 
 
-# ── Route 3: PUT /todos/<id> ─────────────────────────
-# Marks a todo as done
-# Like ticking a checkbox
+# ── Route 3: PUT /todos/<id> 
 @app.route('/todos/<int:id>', methods=['PUT'])
 def complete_todo(id):
     for todo in todos:
         if todo['id'] == id:
             todo['done'] = True
             return jsonify(todo), 200
-    return jsonify({"error": "todo not found"}), 404  # 404 = Not Found
+    return jsonify({"error": "todo not found"}), 404 
 
 
-# ── Route 4: DELETE /todos/<id> ──────────────────────
-# Deletes a todo by its ID
+# ── Route 4: DELETE /todos/<id> 
 @app.route('/todos/<int:id>', methods=['DELETE'])
 def delete_todo(id):
     global todos
@@ -75,6 +65,4 @@ def health():
 
 
 if __name__ == '__main__':
-    # host='0.0.0.0' means accept connections from anywhere
-    # Important for Docker — without this, container won't be reachable
     app.run(host='0.0.0.0', port=5000, debug=True)

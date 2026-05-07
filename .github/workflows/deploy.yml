@@ -8,15 +8,15 @@ on:
 
 jobs:
 
-  # ── Job 1: Test ────────────────────────────────────
+  # ── Job 1: Test 
   test:
     name: Run Tests
-    runs-on: ubuntu-latest  # GitHub provides this free Linux machine
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # downloads your repo code
-
+        uses: actions/checkout@v3  
+        
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -31,7 +31,7 @@ jobs:
         # Docker image will NOT be built or deployed
 
 
-  # ── Job 2: Build & Push Docker Image ──────────────
+  # ── Job 2: Build & Push Docker Image 
   build:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/todo-api:latest
 
 
-  # ── Job 3: Deploy to EC2 ───────────────────────────
+  # ── Job 3: Deploy to EC2 
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest

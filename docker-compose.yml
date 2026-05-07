@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   todo-api:
-    build: .                    # build from our Dockerfile
+    build: ./              
     container_name: todo-api
     ports:
-      - "5000:5000"             # laptop:5000 → container:5000
+      - "5000:5000"            
     environment:
       - FLASK_ENV=development
-    restart: unless-stopped     # auto-restart if it crashes
+    restart: unless-stopped    
