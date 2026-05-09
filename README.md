@@ -70,3 +70,5 @@ All credentials are stored in **GitHub Secrets** — zero hardcoded values in th
 - AWS Security Groups configured for port-level access control
 - IAM roles follow least-privilege principle
 - All secrets managed via GitHub Secrets
+
+<!--DISCLAIMER :: IT MIGHT NOT WORK BECAUSE EC2 INSTANCE HAS BEEN STOPPED TO AVOID AWS BILL -->
