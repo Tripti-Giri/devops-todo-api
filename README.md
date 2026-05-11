@@ -1,74 +1,36 @@
----
+# DevOps Todo API 🚀
 
-## ⚙️ Tech Stack
+A REST API built with Flask, containerized with Docker, 
+and deployed automatically to AWS EC2 via GitHub Actions CI/CD pipeline.
 
-| Layer | Technology |
-|---|---|
-| API | Python, Flask |
-| Testing | pytest |
-| Containerization | Docker, DockerHub |
-| CI/CD | GitHub Actions |
-| Cloud | AWS EC2 (Ubuntu 22.04), IAM, Security Groups |
-| OS | Ubuntu 22.04 |
+## Architecture
+Push to GitHub → Tests Run → Docker Image Built → 
+Pushed to DockerHub → Deployed to AWS EC2
 
----
+## Tech Stack
+- **App:** Python, Flask
+- **Testing:** pytest (8 test cases)
+- **Containerization:** Docker, DockerHub
+- **CI/CD:** GitHub Actions
+- **Cloud:** AWS EC2 (Ubuntu 22.04)
 
-## 🔌 API Endpoints
-
+## API Endpoints
 | Method | Endpoint | Description |
-|---|---|---|
-| GET | `/todos` | Get all todos |
-| POST | `/todos` | Create a new todo |
-| PUT | `/todos/<id>` | Update a todo |
-| DELETE | `/todos/<id>` | Delete a todo |
+|--------|----------|-------------|
+| GET | /health | Health check |
+| GET | /todos | Get all todos |
+| POST | /todos | Create a todo |
+| PUT | /todos/:id | Mark todo as done |
+| DELETE | /todos/:id | Delete a todo |
 
----
-
-## 🧪 Tests
-
-8 unit tests written with pytest covering all routes, edge cases, and error handling.
-
-Tests act as a **pipeline gate** — deployment is blocked if any test fails.
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
----
-
-## 🐳 Run with Docker
-
-```bash
-docker build -t devops-todo-api .
-docker run -p 5000:5000 devops-todo-api
-```
-
-Or with Docker Compose:
-
+## How to Run Locally
 ```bash
 docker-compose up
 ```
 
----
-
-## 🚀 CI/CD Pipeline
-
-The GitHub Actions pipeline triggers on every push to `main` and:
-
-1. Installs dependencies
-2. Runs all pytest tests — **blocks deployment on failure**
-3. Builds and pushes Docker image to DockerHub
-4. SSHs into AWS EC2 and performs zero-downtime container swap
-
-All credentials are stored in **GitHub Secrets** — zero hardcoded values in the codebase.
-
----
-
-## 🔐 Security
-
-- AWS Security Groups configured for port-level access control
-- IAM roles follow least-privilege principle
-- All secrets managed via GitHub Secrets
-
-<!--DISCLAIMER :: IT MIGHT NOT WORK BECAUSE EC2 INSTANCE HAS BEEN STOPPED TO AVOID AWS BILL -->
+## CI/CD Pipeline
+Every push to main branch automatically:
+1. Runs all pytest tests
+2. Builds Docker image
+3. Pushes to DockerHub
+4. Deploys to AWS EC2
